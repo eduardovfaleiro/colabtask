@@ -1,4 +1,4 @@
-DB_URL = postgresql://root:password@localhost:5432/colabtask_db?sslmode=disable
+DB_URL = postgresql://root:password@db:5432/colabtask_db?sslmode=disable
 MIGRATE_IMAGE = migrate/migrate
 MIGRATION_DIR = db/migration
 NETWORK_NAME = $$(basename $$(pwd))_default
