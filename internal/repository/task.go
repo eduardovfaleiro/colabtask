@@ -9,7 +9,6 @@ import (
 
 type TaskRepository interface {
 	Create(ctx context.Context, task *model.Task) error
-	GetByID(ctx context.Context, id model.ID) (*model.Task, error)
 }
 
 type PostgreTaskRepository struct {
@@ -21,8 +20,8 @@ func NewPostgreTaskRepository(db *sql.DB) *PostgreTaskRepository {
 }
 
 func (r *PostgreTaskRepository) Create(ctx context.Context, task *model.Task) error {
-	query := `INSERT INTO tasks (title, description, due_date) VALUES ($1, $2, $3, $4)`
+	query := `INSERT INTO tasks (title, project_id, description, due_date, completed_at) VALUES ($1, $2, $3, $4, $5)`
 
-	_, err := r.db.ExecContext(ctx, query, task.ID, task.Title, task.Description, task.DueDate)
+	_, err := r.db.ExecContext(ctx, query, task.Title, task.ProjectID, task.Description, task.DueDate, task.CompletedAt)
 	return err
 }
